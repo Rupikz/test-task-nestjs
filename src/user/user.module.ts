@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TagRepository } from 'src/libs/models/tag';
 import { UserRepository } from 'src/libs/models/user';
@@ -7,7 +7,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserRepository, TagRepository])],
+  imports: [CacheModule.register(), TypeOrmModule.forFeature([UserRepository, TagRepository])],
   controllers: [UserController],
   providers: [UserService, TagService],
   exports: [UserService, TagService],

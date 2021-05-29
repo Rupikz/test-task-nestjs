@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, CacheInterceptor, Controller, Post, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ApiOk, RefreshSession } from 'src/libs/common/decorators';
 import { AuthSession } from 'src/libs/common/decorators/auth.decorator';
@@ -13,6 +13,7 @@ import { JwtAuthUserGuard } from './guards/jwt-user.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
+@UseInterceptors(CacheInterceptor)
 export class AuthController {
   constructor(private authService: AuthService) {}
 

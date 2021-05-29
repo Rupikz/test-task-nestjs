@@ -13,10 +13,7 @@ import { EditUserDto } from './dtos/request/edit-user.dto';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly userRepository: UserRepository,
-    private readonly tagService: TagService,
-  ) {}
+  constructor(private readonly userRepository: UserRepository, private readonly tagService: TagService) {}
 
   @Transactional()
   async create(data: Partial<UserEntity>): Promise<UserDto> {

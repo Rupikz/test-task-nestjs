@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { CacheModule, Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -24,6 +24,7 @@ const configService = new ConfigService();
       signOptions: { expiresIn: configService.jwtAccessExpirationTime },
     }),
     TypeOrmModule.forFeature([UserRepository]),
+    CacheModule.register(),
   ],
   exports: [
     PassportModule.register({

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
+import { Body, CacheInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthUserGuard } from 'src/auth/guards/jwt-user.guard';
 import { DeletedStatus } from 'src/libs/common/constants';
@@ -17,6 +17,7 @@ import { TagService } from './tag.service';
 @Controller('tags')
 @ApiBearerAuth('USER')
 @UseGuards(JwtAuthUserGuard)
+@UseInterceptors(CacheInterceptor)
 export class TagController {
   constructor(private tagService: TagService) {}
 
