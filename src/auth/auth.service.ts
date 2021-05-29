@@ -9,11 +9,11 @@ import { ConfigService } from 'src/utils/config.service';
 import { UtilsService } from 'src/utils/utils';
 import { FindConditions } from 'typeorm';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import { AuthLoginDto } from './dtos/auth-login.dto';
-import { AuthSignupDto } from './dtos/auth-signup.dto';
-import { TokenPayloadDto } from './dtos/token-payload.dto';
-import { UserRefreshTransportDto } from './dtos/user-refresh-transport.dto';
-import { UserTransportDto } from './dtos/user-transport.dto';
+import { AuthLoginDto } from './dtos/request/auth-login.dto';
+import { AuthSignupDto } from './dtos/request/auth-signup.dto';
+import { TokenPayloadDto } from './dtos/response/token-payload.dto';
+import { UserRefreshTransportDto } from './dtos/response/user-refresh-transport.dto';
+import { UserTransportDto } from './dtos/response/user-transport.dto';
 
 @Injectable()
 export class AuthService {

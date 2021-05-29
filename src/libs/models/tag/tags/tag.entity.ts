@@ -16,9 +16,9 @@ export class TagEntity extends AbstractEntity {
   @Column({ type: 'int' })
   sortOrder: number;
 
-  @ManyToOne(() => UserEntity, (entity) => entity.tags, {})
+  @ManyToOne(() => UserEntity, (entity) => entity.createdTags, {})
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  user: UserEntity;
+  creator: UserEntity;
 
   @ManyToMany(() => UserEntity)
   @JoinTable({

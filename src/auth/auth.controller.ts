@@ -3,11 +3,11 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { ApiOk, RefreshSession } from 'src/libs/common/decorators';
 import { AuthSession } from 'src/libs/common/decorators/auth.decorator';
 import { AuthService } from './auth.service';
-import { AuthLoginDto } from './dtos/auth-login.dto';
-import { AuthSignupDto } from './dtos/auth-signup.dto';
-import { TokenPayloadDto } from './dtos/token-payload.dto';
-import { UserRefreshTransportDto } from './dtos/user-refresh-transport.dto';
-import { UserTransportDto } from './dtos/user-transport.dto';
+import { AuthLoginDto } from './dtos/request/auth-login.dto';
+import { AuthSignupDto } from './dtos/request/auth-signup.dto';
+import { TokenPayloadDto } from './dtos/response/token-payload.dto';
+import { UserRefreshTransportDto } from './dtos/response/user-refresh-transport.dto';
+import { UserTransportDto } from './dtos/response/user-transport.dto';
 import { JwtRefreshAuthUserGuard } from './guards/jwt-refresh-user.guard';
 import { JwtAuthUserGuard } from './guards/jwt-user.guard';
 
@@ -31,6 +31,7 @@ export class AuthController {
     return new TokenPayloadDto(token);
   }
 
+  // Этот прикол не работает
   @ApiBearerAuth('USER')
   @UseGuards(JwtAuthUserGuard)
   @Post('logout')

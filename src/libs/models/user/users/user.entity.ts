@@ -1,6 +1,6 @@
 import { AbstractEntity } from 'src/libs/common/entities/abstract.entity';
 import { PasswordTransformer } from 'src/libs/common/transformers';
-import { Column, Entity, Index, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TagEntity } from '../../tag';
 
 @Index('user_email_unique_index', ['email'], {
@@ -23,7 +23,13 @@ export class UserEntity extends AbstractEntity {
   @Column({ type: 'varchar', transformer: new PasswordTransformer(), length: 100 })
   password: string;
 
-  @OneToMany(() => TagEntity, (entity) => entity.user, {})
+  @OneToMany(() => TagEntity, (entity) => entity.creator, {})
   @JoinColumn({ name: 'id', referencedColumnName: 'userId' })
+  createdTags: TagEntity;
+
+  @ManyToMany(() => TagEntity, { cascade: true, onDelete: 'CASCADE' })
+  @JoinTable({
+    name: 'users_tags',
+  })
   tags: TagEntity[];
 }

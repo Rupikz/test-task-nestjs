@@ -5,11 +5,12 @@ import { DeletedStatus } from 'src/libs/common/constants';
 import { ApiOk } from 'src/libs/common/decorators';
 import { ParamsIntDto } from 'src/libs/common/dtos';
 import { TagNameExistException, TagNotFoundException } from 'src/libs/common/exceptions';
-import { TagDto } from 'src/libs/models/tag';
-import { CreateTagDto } from './dtos/create-tag.dto';
-import { EditTagDto } from './dtos/edit-tag.dto';
-import { TagPageOptionsDto } from './dtos/tag-page-options.dto';
-import { TagPageDto } from './dtos/tag-page.dto';
+import { CreateTagDto } from './dtos/request/create-tag.dto';
+import { EditTagDto } from './dtos/request/edit-tag.dto';
+import { TagPageOptionsDto } from './dtos/request/tag-page-options.dto';
+import { TagPageDto } from './dtos/response/tag-page.dto';
+import { TagWithCreatorDto } from './dtos/response/tag-with-creator.dto';
+import { TagDto } from './dtos/response/tag.dto';
 import { TagService } from './tag.service';
 
 @ApiTags('Tag')
@@ -30,24 +31,24 @@ export class TagController {
   }
 
   @Get(':id')
-  @ApiOk({ summary: 'Получить тег по id' }, { type: TagDto })
-  async fineOne(@Param() params: ParamsIntDto): Promise<TagDto> {
-    const tag = await this.tagService.getMin({ id: params.id, deleted: DeletedStatus.NOT_DELETED });
+  @ApiOk({ summary: 'Получить тег по id' }, { type: TagWithCreatorDto })
+  async fineOne(@Param() params: ParamsIntDto): Promise<TagWithCreatorDto> {
+    const tag = await this.tagService.findOneWithCreator({ id: params.id, deleted: DeletedStatus.NOT_DELETED });
     if (!tag) {
       throw new TagNotFoundException();
     }
-    return new TagDto(tag);
+    return new TagWithCreatorDto(tag);
   }
 
   @Put(':id')
-  @ApiOk({ summary: 'Редактировать тег по id' }, { type: TagDto })
-  async edit(@Param() params: ParamsIntDto, @Body() data: EditTagDto): Promise<TagDto> {
+  @ApiOk({ summary: 'Редактировать тег по id' }, { type: TagWithCreatorDto })
+  async edit(@Param() params: ParamsIntDto, @Body() data: EditTagDto): Promise<TagWithCreatorDto> {
     const tag = await this.tagService.getMin({ id: params.id, deleted: DeletedStatus.NOT_DELETED });
     if (!tag) {
       throw new TagNotFoundException();
     }
     await this.tagService.edit(params, data);
-    return new TagDto(await this.tagService.getMin({ id: params.id }));
+    return new TagWithCreatorDto(await this.tagService.findOneWithCreator({ id: params.id }));
   }
 
   @ApiOk({ summary: 'Список тегов' }, { type: TagPageDto })
