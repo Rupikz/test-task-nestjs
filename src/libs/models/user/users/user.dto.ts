@@ -1,8 +1,7 @@
 import { ApiPropertyEmail, ApiPropertyNickname, ApiPropertyUuid } from 'src/libs/common/decorators/api-property.decorator';
-import { AbstractDto } from 'src/libs/common/dtos/abstract.dto';
 import { UserEntity } from './user.entity';
 
-export class UserDto extends AbstractDto {
+export class UserDto {
   @ApiPropertyUuid()
   id: string;
 
@@ -13,7 +12,6 @@ export class UserDto extends AbstractDto {
   email: string;
 
   constructor(entity: UserEntity) {
-    super(entity);
     this.id = entity.id;
     this.nickname = entity.nickname;
     this.email = entity.email;

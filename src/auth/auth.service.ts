@@ -25,7 +25,7 @@ export class AuthService {
   ) {}
 
   async login(passwordLoginDto: AuthLoginDto): Promise<TokenPayloadDto> {
-    const findData = <FindConditions<UserEntity>>{ email: passwordLoginDto.email };
+    const findData = <FindConditions<UserEntity>>{ email: passwordLoginDto.email, deleted: DeletedStatus.NOT_DELETED };
     const user = await this.userService.getMin(findData);
     if (!user) {
       throw new UserNotFoundException();

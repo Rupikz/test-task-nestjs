@@ -10,3 +10,9 @@ export class UserNicknameExistException extends ConflictException {
     super('error.user.nicknameExist', error);
   }
 }
+
+export class TagNameExistException extends ConflictException {
+  constructor(error?: string) {
+    super('error.tag.nameExist', error);
+  }
+}
