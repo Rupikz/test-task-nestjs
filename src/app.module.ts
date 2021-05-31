@@ -1,11 +1,13 @@
 import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RedisModule } from 'nestjs-redis';
+import { AuthModule } from './auth/auth.module';
 import { ConfigService } from './utils/config.service';
 
 @Global()
 @Module({
   imports: [
+    AuthModule,
     TypeOrmModule.forRootAsync({
       useFactory: (configService: ConfigService) => configService.typeOrmConfig,
       inject: [ConfigService],

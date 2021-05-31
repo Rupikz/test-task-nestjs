@@ -1,8 +1,8 @@
 import { ConflictException } from '@nestjs/common';
 
-export class UserEmailExistException extends ConflictException {
+export class UserEmailOrNicknameExistException extends ConflictException {
   constructor(error?: string) {
-    super('error.user.emailExist', error);
+    super('error.user.emailOrNicknameExist', error);
   }
 }
 export class UserNicknameExistException extends ConflictException {
