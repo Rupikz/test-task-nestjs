@@ -49,9 +49,9 @@ npm run dev
 
 **AUTH**
 
-- [x] POST /signup
-- [x] POST /login
-- [ ] POST /logout
+- [x] **POST** /signup
+- [x] **POST** /login
+- [ ] **POST** /logout
 
 **USER**
 
@@ -67,5 +67,5 @@ npm run dev
 - [x] **POST** /tag
 - [x] **GET** /tag/{id}
 - [x] **GET** /tag
-- [ ] **PUT** /tag/{id}
-- [ ] **DELETE** /tag/{id}
+- [x] **PUT** /tag/{id}
+- [x] **DELETE** /tag/{id}
