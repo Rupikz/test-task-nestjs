@@ -5,15 +5,16 @@
 ### Настройка приложения
 
 ```bash
-mv .example.env .env
+cp .example.env .env
 docker-compose -f docker-compose.yml up
 ```
 
 ### Запуск приложения
 
 ```bash
-npm i
-npm run dev
+npm i pnpm -G
+pnpm i
+pnpm dev
 ```
 
 ### Swagger
