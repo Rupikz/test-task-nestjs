@@ -1,14 +1,14 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 interface IPageMetaDtoParameters {
-  itemCount: number;
+  quantity: number;
 }
 
 export class PageMetaWithoutPaginationDto {
   @ApiProperty()
-  readonly itemCount: number;
+  readonly quantity: number;
 
-  constructor({ itemCount }: IPageMetaDtoParameters) {
-    this.itemCount = itemCount;
+  constructor({ quantity }: IPageMetaDtoParameters) {
+    this.quantity = quantity;
   }
 }

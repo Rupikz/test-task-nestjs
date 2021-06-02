@@ -1,8 +1,7 @@
 import { ApiPropertyId, ApiPropertyInt, ApiPropertyName } from 'src/libs/common/decorators/api-property.decorator';
-import { AbstractDto } from 'src/libs/common/dtos/abstract.dto';
-import { TagEntity } from './tag.entity';
+import { TagEntity } from 'src/libs/models/tag';
 
-export class TagDto extends AbstractDto {
+export class TagDto {
   @ApiPropertyId()
   id: number;
 
@@ -13,7 +12,7 @@ export class TagDto extends AbstractDto {
   sortOrder: number;
 
   constructor(entity: TagEntity) {
-    super(entity);
+    this.id = entity.id;
     this.name = entity.name;
     this.sortOrder = entity.sortOrder;
   }

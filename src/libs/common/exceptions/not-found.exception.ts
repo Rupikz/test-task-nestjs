@@ -5,8 +5,8 @@ export class UserNotFoundException extends NotFoundException {
     super('error.user.notFound', error);
   }
 }
-export class TegNotFoundException extends NotFoundException {
+export class TagNotFoundException extends NotFoundException {
   constructor(error?: string) {
-    super('error.teg.notFound', error);
+    super('error.tag.notFound', error);
   }
 }

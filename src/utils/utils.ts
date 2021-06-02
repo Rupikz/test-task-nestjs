@@ -19,4 +19,17 @@ export class UtilsService {
   static validateHash(password: string, hash: string): Promise<boolean> {
     return bcrypt.compare(password, hash || '');
   }
+
+  /**
+   * Parse authorization token
+   * @param {hdrValue} authorizationHeader
+   * @returns {RegExpMatchArray}
+   */
+  static parseAuthHeader(hdrValue: string): string {
+    if (typeof hdrValue !== 'string') {
+      return null;
+    }
+    const matches = hdrValue.split(' ')[1];
+    return matches;
+  }
 }

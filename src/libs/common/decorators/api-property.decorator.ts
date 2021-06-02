@@ -120,3 +120,27 @@ export function ApiPropertyEnum(enumValues: any[] | Record<string, any>, options
 export function ApiPropertyOptionalEnum(enumValues: any[] | Record<string, any>, options: ApiPropertyOptions = {}, validationOptions: ValidationOptions = {}) {
   return applyDecorators(IsOptional(), IsEnum(enumValues, validationOptions), ApiPropertyOptional({ enum: enumValues, ...options }));
 }
+export function ApiPropertyAccessToken(options: ApiPropertyOptions = {}) {
+  return applyDecorators(
+    IsString(),
+    IsNotEmpty(),
+    ApiProperty({
+      type: 'string',
+      example:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIyOCwiaWF0IjoxNjIxNTMyMTYzLCJleHAiOjE2MjE1MzU3NjN9.StMAzhs6EdhJ6ZyD2sbGJhp6CZlGpscpfqlGMPrbIGE',
+      ...options,
+    })
+  );
+}
+export function ApiPropertyOptionalAccessToken(options: ApiPropertyOptions = {}) {
+  return applyDecorators(
+    IsString(),
+    IsOptional(),
+    ApiPropertyOptional({
+      type: 'string',
+      example:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIyOCwiaWF0IjoxNjIxNTMyMTYzLCJleHAiOjE2MjE1MzU3NjN9.StMAzhs6EdhJ6ZyD2sbGJhp6CZlGpscpfqlGMPrbIGE',
+      ...options,
+    })
+  );
+}

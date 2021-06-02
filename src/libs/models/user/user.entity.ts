@@ -1,7 +1,8 @@
 import { AbstractEntity } from 'src/libs/common/entities/abstract.entity';
 import { PasswordTransformer } from 'src/libs/common/transformers';
 import { Column, Entity, Index, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { TagEntity } from '../../tag';
+import { TagEntity } from '../tag/tag.entity';
+import { UsersTagsEntity } from '../users-tags';
 
 @Index('user_email_unique_index', ['email'], {
   unique: true,
@@ -25,5 +26,9 @@ export class UserEntity extends AbstractEntity {
 
   @OneToMany(() => TagEntity, (entity) => entity.user, {})
   @JoinColumn({ name: 'id', referencedColumnName: 'userId' })
-  tags: TagEntity[];
+  createdTags: TagEntity[];
+
+  @OneToMany(() => UsersTagsEntity, (entity) => entity.tagId, {})
+  @JoinColumn({ name: 'id', referencedColumnName: 'tagId' })
+  tags: UsersTagsEntity[];
 }
