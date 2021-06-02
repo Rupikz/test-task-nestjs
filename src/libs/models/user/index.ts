@@ -1,3 +1,2 @@
-export * from './users/user.dto';
-export * from './users/user.entity';
-export * from './users/user.repository';
+export * from './user.entity';
+export * from './user.repository';

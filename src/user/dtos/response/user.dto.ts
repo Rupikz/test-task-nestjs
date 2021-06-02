@@ -1,5 +1,5 @@
 import { ApiPropertyEmail, ApiPropertyNickname, ApiPropertyUuid } from 'src/libs/common/decorators/api-property.decorator';
-import { UserEntity } from './user.entity';
+import { UserEntity } from 'src/libs/models/user';
 
 export class UserDto {
   @ApiPropertyUuid()

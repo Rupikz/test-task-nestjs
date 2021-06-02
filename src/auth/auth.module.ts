@@ -3,6 +3,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserRepository } from 'src/libs/models/user';
+import { UsersTagsRepository } from 'src/libs/models/users-tags';
 import { UserService } from 'src/user/user.service';
 import { ConfigService } from 'src/utils/config.service';
 import { UserModule } from '../user/user.module';
@@ -23,7 +24,7 @@ const configService = new ConfigService();
       secret: configService.jwtAccessSecret,
       signOptions: { expiresIn: configService.jwtAccessExpirationTime },
     }),
-    TypeOrmModule.forFeature([UserRepository]),
+    TypeOrmModule.forFeature([UserRepository, UsersTagsRepository]),
     CacheModule.register(),
   ],
   exports: [

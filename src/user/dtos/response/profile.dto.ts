@@ -11,11 +11,11 @@ export class ProfileDto {
   email: string;
 
   @ApiProperty({ type: TagDto, isArray: true })
-  tags: TagDto[];
+  createdTags: TagDto[];
 
   constructor(entity: UserEntity) {
     this.nickname = entity.nickname;
     this.email = entity.email;
-    this.tags = entity.tags;
+    this.createdTags = entity.createdTags.map((it) => new TagDto(it));
   }
 }

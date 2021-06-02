@@ -3,9 +3,9 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { UserTransportDto } from 'src/auth/dtos/response/user-transport.dto';
 import { JwtAuthUserGuard } from 'src/auth/guards/jwt-user.guard';
 import { ApiOk, AuthSession } from 'src/libs/common/decorators';
-import { TagEntity } from 'src/libs/models/tag';
 import { EditTagsDto } from './dtos/request/edit-tags.dto';
 import { EditUserDto } from './dtos/request/edit-user.dto';
+import { MyTagDto } from './dtos/response/my-tags.dto';
 import { ProfileEditDto } from './dtos/response/profile-edit.dto';
 import { ProfileDto } from './dtos/response/profile.dto';
 import { UserService } from './user.service';
@@ -40,22 +40,25 @@ export class UserController {
   }
 
   @Post('tag')
-  @ApiOk({ summary: 'Добавить теги пользователю' }, { type: ProfileDto })
-  async addTags(@AuthSession() session: UserTransportDto, @Body() data: EditTagsDto): Promise<ProfileDto> {
+  @ApiOk({ summary: 'Добавить теги пользователю' }, { type: MyTagDto })
+  async addTags(@AuthSession() session: UserTransportDto, @Body() data: EditTagsDto): Promise<MyTagDto> {
     await this.userService.addTags(session, data);
-    return new ProfileDto(await this.userService.getMin({ id: session.userId }));
+    const tags = await this.userService.findTags(session);
+    return new MyTagDto(tags);
   }
 
   @Delete('tag')
-  @ApiOk({ summary: 'Удалить теги у пользователя' }, { type: ProfileDto })
-  async removeTags(@AuthSession() session: UserTransportDto, @Body() data: EditTagsDto): Promise<ProfileDto> {
+  @ApiOk({ summary: 'Удалить теги у пользователя' }, { type: MyTagDto })
+  async removeTags(@AuthSession() session: UserTransportDto, @Body() data: EditTagsDto): Promise<MyTagDto> {
     await this.userService.removeTags(session, data);
-    return new ProfileDto(await this.userService.getMin({ id: session.userId }));
+    const tags = await this.userService.findTags(session);
+    return new MyTagDto(tags);
   }
 
   @Get('tag/my')
-  @ApiOk({ summary: 'Мои теги' }, { type: ProfileDto })
-  async findTags(@AuthSession() session: UserTransportDto): Promise<TagEntity[]> {
-    return await this.userService.findTags(session);
+  @ApiOk({ summary: 'Мои теги' }, { type: MyTagDto })
+  async findTags(@AuthSession() session: UserTransportDto): Promise<MyTagDto> {
+    const tags = await this.userService.findTags(session);
+    return new MyTagDto(tags);
   }
 }

@@ -1,2 +1,2 @@
-export * from './tags/tag.entity';
-export * from './tags/tag.repository';
+export * from './tag.entity';
+export * from './tag.repository';

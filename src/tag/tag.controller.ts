@@ -1,8 +1,9 @@
 import { Body, CacheInterceptor, Controller, Delete, Get, Param, Post, Put, Query, UseGuards, UseInterceptors } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { UserTransportDto } from 'src/auth/dtos/response/user-transport.dto';
 import { JwtAuthUserGuard } from 'src/auth/guards/jwt-user.guard';
 import { DeletedStatus } from 'src/libs/common/constants';
-import { ApiOk } from 'src/libs/common/decorators';
+import { ApiOk, AuthSession } from 'src/libs/common/decorators';
 import { ParamsIntDto } from 'src/libs/common/dtos';
 import { TagNameExistException, TagNotFoundException } from 'src/libs/common/exceptions';
 import { CreateTagDto } from './dtos/request/create-tag.dto';
@@ -23,12 +24,12 @@ export class TagController {
 
   @Post()
   @ApiOk({ summary: 'Создать тег' }, { type: TagDto })
-  async create(@Body() data: CreateTagDto): Promise<TagDto> {
-    const isExist = await this.tagService.getMin({ ...data, deleted: DeletedStatus.NOT_DELETED });
+  async create(@AuthSession() session: UserTransportDto, @Body() data: CreateTagDto): Promise<TagDto> {
+    const isExist = await this.tagService.getMin({ name: data.name });
     if (isExist) {
       throw new TagNameExistException();
     }
-    return await this.tagService.create(data);
+    return await this.tagService.create(data, session);
   }
 
   @Get(':id')
@@ -55,8 +56,8 @@ export class TagController {
   @ApiOk({ summary: 'Список тегов' }, { type: TagPageDto })
   @Get()
   async privateList(@Query() pageOptionsDto: TagPageOptionsDto): Promise<TagPageDto> {
-    const [list, itemCount] = await this.tagService.findAll(pageOptionsDto);
-    return new TagPageDto(list, { itemCount, pageOptionsDto });
+    const [list, quantity] = await this.tagService.findAll(pageOptionsDto);
+    return new TagPageDto(list, { quantity, pageOptionsDto });
   }
 
   @ApiOk({ summary: 'Удалить тег по id' }, { type: Boolean })

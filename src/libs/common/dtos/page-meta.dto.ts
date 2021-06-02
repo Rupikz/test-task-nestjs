@@ -3,7 +3,7 @@ import { PageOptionsDto } from './page-options.dto';
 
 export interface IPageMetaDtoParameters {
   pageOptionsDto: PageOptionsDto;
-  itemCount: number;
+  quantity: number;
 }
 
 export class PageMetaDto {
@@ -14,15 +14,15 @@ export class PageMetaDto {
   readonly pageSize: number;
 
   @ApiProperty()
-  readonly itemCount: number;
+  readonly quantity: number;
 
   @ApiProperty()
   readonly pageCount: number;
 
-  constructor({ pageOptionsDto, itemCount }: IPageMetaDtoParameters) {
+  constructor({ pageOptionsDto, quantity }: IPageMetaDtoParameters) {
     this.page = pageOptionsDto.page;
     this.pageSize = pageOptionsDto.pageSize;
-    this.itemCount = itemCount;
-    this.pageCount = Math.ceil(itemCount / this.pageSize);
+    this.quantity = quantity;
+    this.pageCount = Math.ceil(quantity / this.pageSize);
   }
 }

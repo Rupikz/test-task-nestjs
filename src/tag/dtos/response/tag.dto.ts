@@ -1,5 +1,5 @@
 import { ApiPropertyId, ApiPropertyInt, ApiPropertyName } from 'src/libs/common/decorators/api-property.decorator';
-import { TagEntity } from '../../../libs/models/tag/tags/tag.entity';
+import { TagEntity } from 'src/libs/models/tag';
 
 export class TagDto {
   @ApiPropertyId()

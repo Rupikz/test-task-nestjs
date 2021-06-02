@@ -1,6 +1,7 @@
 import { AbstractEntity } from 'src/libs/common/entities/abstract.entity';
-import { Column, Entity, Index, JoinColumn, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { UserEntity } from '../../user';
+import { Column, Entity, Index, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm';
+import { UserEntity } from '../user';
+import { UsersTagsEntity } from '../users-tags';
 
 @Index('name_unique_index', ['name'], {
   unique: true,
@@ -16,13 +17,14 @@ export class TagEntity extends AbstractEntity {
   @Column({ type: 'int' })
   sortOrder: number;
 
+  @PrimaryColumn({ type: 'uuid' })
+  userId: string;
+
   @ManyToOne(() => UserEntity, (entity) => entity.createdTags, {})
   @JoinColumn({ name: 'userId', referencedColumnName: 'id' })
-  creator: UserEntity;
+  user: UserEntity;
 
-  @ManyToMany(() => UserEntity)
-  @JoinTable({
-    name: 'users_tags',
-  })
-  users: UserEntity[];
+  @OneToMany(() => UsersTagsEntity, (entity) => entity.userId, {})
+  @JoinColumn({ name: 'id', referencedColumnName: 'userId' })
+  users: UsersTagsEntity[];
 }
