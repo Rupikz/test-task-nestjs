@@ -31,13 +31,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install Node.js 14
-      - uses: actions/setup-node@v2
+        uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
-      - run: npm install
+        run: npm install
       - name: Check linting
-      - run: npm run test:e2e
+        run: npm run test:e2e
 
   build:
     runs-on: ubuntu-latest
