@@ -5,6 +5,7 @@ RUN mkdir /monolit
 
 WORKDIR /monolit
 COPY ./pnpm-lock.yaml ./nest-cli.json ./package.json ./pnpm-workspace.yaml ./
+ADD .example.env .env
 
 RUN pnpm i -s
 
