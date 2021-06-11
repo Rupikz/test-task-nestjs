@@ -3,7 +3,7 @@ RUN npm install -g pnpm reflect-metadata
 
 RUN mkdir /monolit
 
-WORKDIR /mono
+WORKDIR /monolit
 COPY ./pnpm-lock.lock ./nest-cli.json ./package.json ./pnpm-workspace.yaml ./
 
 RUN pnpm i -s
@@ -11,3 +11,5 @@ RUN pnpm i -s
 COPY ./ /monolit
 
 RUN pnpm i -s
+RUN pnpm build
+CMD [ "node","./dist/src/main.js" ]

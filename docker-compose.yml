@@ -22,3 +22,29 @@ services:
     restart: always
     ports:
       - '6579:6379'
+
+  test_task_local_migration:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    env_file:
+      - ./.env
+    container_name: test_task_local_migration
+    depends_on:
+      - test_task_local_postgres
+    command: sh -c "pnpm migration:run --dir /mono "
+
+  test_task_local_app:
+    env_file:
+      - ./.env
+    container_name: test_task_local_app
+    restart: always
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - '9001:9001'
+    depends_on:
+      - test_task_local_postgres
+      - test_task_local_migration
+      - test_task_local_redis
