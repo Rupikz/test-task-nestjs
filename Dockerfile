@@ -4,7 +4,7 @@ RUN npm install -g pnpm reflect-metadata
 RUN mkdir /monolit
 
 WORKDIR /monolit
-COPY ./pnpm-lock.lock ./nest-cli.json ./package.json ./pnpm-workspace.yaml ./
+COPY ./pnpm-lock.yaml ./nest-cli.json ./package.json ./pnpm-workspace.yaml ./
 
 RUN pnpm i -s
 

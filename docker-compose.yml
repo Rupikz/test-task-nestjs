@@ -32,7 +32,7 @@ services:
     container_name: test_task_local_migration
     depends_on:
       - test_task_local_postgres
-    command: sh -c "pnpm migration:run --dir /mono "
+    command: sh -c "pnpm migration:run "
 
   test_task_local_app:
     env_file:
