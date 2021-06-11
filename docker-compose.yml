@@ -5,7 +5,7 @@ services:
     image: 'postgres'
     restart: always
     env_file:
-      - .env
+      - ./.example.env
     ports:
       - '8532:5432'
     environment:
@@ -28,7 +28,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     env_file:
-      - ./.env
+      - ./.example.env
     container_name: test_task_local_migration
     depends_on:
       - test_task_local_postgres
@@ -36,7 +36,7 @@ services:
 
   test_task_local_app:
     env_file:
-      - ./.env
+      - ./.example.env
     container_name: test_task_local_app
     restart: always
     build:
